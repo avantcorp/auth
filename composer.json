@@ -1,0 +1,21 @@
+{
+    "name": "avantcorp/auth",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "laravel/socialite": "^5.17",
+        "socialiteproviders/laravelpassport": "^4.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Avant\\Auth\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Avant\\Auth\\AuthServiceProvider"
+            ]
+        }
+    }
+}
