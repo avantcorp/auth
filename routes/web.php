@@ -45,9 +45,9 @@ Route::middleware(['web'])
         });
     });
 
-Route::post('/auth/update', function (Request $request) {
+Route::post('/auth/logout', function (Request $request) {
     config('auth.providers.users.model')::query()
-        ->whereKey($request->collect('logout'))
+        ->where('avant_auth_id', $request->collect('logout'))
         ->update([
             'avant_auth_token'         => null,
             'avant_auth_refresh_token' => null,
