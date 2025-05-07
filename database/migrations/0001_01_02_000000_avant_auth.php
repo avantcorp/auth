@@ -15,6 +15,7 @@ return new class extends Migration {
             });
 
             collect(Schema::getColumns('users'))
+                ->pluck('name')
                 ->intersect(['email_verified_at', 'password', 'remember_token'])
                 ->each(fn (string $column) => $table->dropColumn($column));
         });
