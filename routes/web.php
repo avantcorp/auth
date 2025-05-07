@@ -26,7 +26,7 @@ Route::middleware(['web'])
 
             throw_unless(
                 $avantUser->user['authorized'],
-                new AccessDeniedHttpException
+                new AccessDeniedHttpException('You are unauthorized to access this application')
             );
 
             $user = config('auth.providers.users.model')::query()
@@ -44,3 +44,12 @@ Route::middleware(['web'])
             return redirect(config('services.avant-auth.redirect_authenticated'));
         });
     });
+
+Route::post('/auth/update', function (Request $request) {
+    config('auth.providers.users.model')::query()
+        ->whereKey($request->collect('logout'))
+        ->update([
+            'avant_auth_token'         => null,
+            'avant_auth_refresh_token' => null,
+        ]);
+});

@@ -14,9 +14,9 @@ return new class extends Migration {
                 $table->longText('avant_auth_refresh_token');
             });
 
-            $table->dropColumn('email_verified_at');
-            $table->dropColumn('password');
-            $table->dropColumn('remember_token');
+            collect(Schema::getColumns('users'))
+                ->intersect(['email_verified_at', 'password', 'remember_token'])
+                ->each(fn (string $column) => $table->dropColumn($column));
         });
 
         Schema::dropIfExists('password_reset_tokens');

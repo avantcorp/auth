@@ -2,6 +2,7 @@
 
 namespace Avant\Auth;
 
+use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use SocialiteProviders\LaravelPassport\Provider as LaravelPassportProvider;
@@ -18,6 +19,8 @@ class AuthServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        resolve(Kernel::class)->appendMiddlewareToGroup('web', EnsureSessionIsValid::class);
+
         Event::listen(fn (SocialiteWasCalled $event) => $event
             ->extendSocialite('avant-auth', LaravelPassportProvider::class)
         );
