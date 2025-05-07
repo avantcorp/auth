@@ -10,8 +10,8 @@ return new class extends Migration {
         Schema::table('users', function (Blueprint $table) {
             $table->after('email', function (Blueprint $table) {
                 $table->bigInteger('avant_auth_id');
-                $table->longText('avant_auth_token');
-                $table->longText('avant_auth_refresh_token');
+                $table->longText('avant_auth_token')->nullable();
+                $table->longText('avant_auth_refresh_token')->nullable();
             });
 
             collect(Schema::getColumns('users'))
